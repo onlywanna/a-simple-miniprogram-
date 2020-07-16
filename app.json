@@ -20,6 +20,41 @@
     "navigationBarTitleText": "x商城",
     "navigationBarTextStyle":"black"
   },
+  "tabBar": {
+    "color": "#515151",
+    "selectedColor": "#ff5777",
+    "backgroundColor": "",
+    "position": "bottom",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "assets/home.png",
+        "selectedIconPath": "assets/home_active.png"
+      },
+      {
+        "pagePath": "pages/category/index",
+        "text": "分类",
+        "iconPath": "assets/category.png",
+        "selectedIconPath": "assets/category_active.png"
+      },
+      {
+        "pagePath": "pages/cart/index",
+        "text": "购物车",
+        "iconPath": "assets/cart.png",
+        "selectedIconPath": "assets/cart_active.png"
+      },
+      {
+        "pagePath":"pages/user/index",
+        "text":"我的",
+        "iconPath":"assets/profile.png",
+        "selectedIconPath": "assets/profile_active.png"
+      }
+
+    ]
+  },
+
   "style": "v2",
   "sitemapLocation": "sitemap.json"
 }
