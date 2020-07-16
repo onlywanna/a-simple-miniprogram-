@@ -14,6 +14,9 @@
 .index_cate navigator image {
   width: 100%;
 }
+.floor_group .floor_title {
+  padding: 10rpx 0;
+}
 .floor_group .floor_title image {
   width: 100%;
 }
