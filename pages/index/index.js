@@ -7,15 +7,15 @@ Page({
    */
   data: {
     //轮播图数组
-    swiperList:[]
+    swiperList:[],
+    //导航数组
+    cateList:[]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
-
     // 1.发送异步请求获取轮播图数据， 优化的手段可以通过es6的promise来解决这个问题
     // var reqTask = wx.request({
     //   url: 'https://api-hmugo-web.itheima.net/api/public/v1/home/swiperdata',
@@ -27,7 +27,15 @@ Page({
     //   }
     // });
       
-    
+    this.getSwiperList()
+    this.getCateList()
+  },
+  
+
+
+
+  //  获取轮播图数据
+  getSwiperList(){
     request({
       url:"https://api-hmugo-web.itheima.net/api/public/v1/home/swiperdata"
     }).then((result) =>{
@@ -39,52 +47,17 @@ Page({
 
   },
   
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-    
-  },
-  
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
-    onReady: function () {
-      
-    },
+  // 获取分类导航数据
+  getCateList(){
+    request({
+      url:"https://api-hmugo-web.itheima.net/api/public/v1/home/catitems"
+    }).then((result) =>{
+      console.log(result)
+      this.setData({
+        cateList: result.data.message
+      })
+    })
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-    
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-    
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-    
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-    
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-    
   }
+
 })

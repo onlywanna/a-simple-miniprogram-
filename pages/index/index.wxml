@@ -29,4 +29,18 @@
 
   <!-- end -->
 
+  <!-- 导航开始 -->
+  <view class="index_cate">
+    <navigator
+      wx:for = "{{cateList}}"
+      wx:key =  "name"
+    >
+      <image mode="widthFix" src="{{item.image_src}}"></image>
+    </navigator>
+  </view>
+
+  <!-- end -->
+
+
+
 </view>
