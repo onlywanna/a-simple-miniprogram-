@@ -3,5 +3,30 @@
     <SearchInput></SearchInput>
   <!-- end -->
 
+  <!-- 轮播图开始 -->
+    <view class="index_swiper">
+
+    <!-- 1. swiper存在默认的样式 
+        宽度100% ，高度150px
+
+        2. image标签存在默认的样式
+        宽度320px, 高度240px
+
+        原图是750*340px
+
+      -->
+      <swiper autoplay indicator-dots>
+        <swiper-item
+        wx:for = "{{swiperList}}"
+        wx:key ="goods_id"
+        >
+          <navigator>
+            <image mode="widthFix" src="{{item.image_src}}"></image>
+          </navigator>
+        </swiper-item>
+      </swiper>
+    </view>
+
+  <!-- end -->
 
 </view>
