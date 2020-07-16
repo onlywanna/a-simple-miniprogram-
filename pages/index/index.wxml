@@ -30,17 +30,38 @@
   <!-- end -->
 
   <!-- 导航开始 -->
-  <view class="index_cate">
-    <navigator
-      wx:for = "{{cateList}}"
-      wx:key =  "name"
-    >
-      <image mode="widthFix" src="{{item.image_src}}"></image>
-    </navigator>
-  </view>
+    <view class="index_cate">
+      <navigator
+        wx:for = "{{cateList}}"
+        wx:key =  "name"
+      >
+        <image mode="widthFix" src="{{item.image_src}}"></image>
+      </navigator>
+    </view>
 
   <!-- end -->
 
+  <!-- 楼层开始 -->
+  <view class="index_floor">
+    <view class="floor_group" 
+      wx:for = "{{floorList}}"
+      wx:key = "floor_title"
+    >
+      <!-- 标题 -->
+      <view class="floor_title">
+        <image mode="widthFix" src="{{item.floor_title.image_src}}"></image>
+      </view>
+      <!-- 内容 -->
+      <view class="floor_content">
+        <navigator
+        wx:for = "{{item.product_list}}"
+        >
+          <image mode="{{index===0?'widthFix':'scaleToFill'}}" src="{{item.image_src}}"></image>
+        </navigator>
+      </view>
+    </view>
+  </view>
+  <!-- end -->
 
 
 </view>

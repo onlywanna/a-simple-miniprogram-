@@ -18,3 +18,42 @@
     }
   }
 }
+
+
+
+.floor_group{
+  .floor_title{
+    image{
+      width: 100%;
+    }
+  }
+  .floor_content{ 
+    overflow: hidden;
+
+    navigator{
+      float: left;
+      width: 33.333%;
+
+
+      // 后四个超链接
+      &:nth-last-child(-n+4){
+        height: 0.3333*750*386/233/2rpx;
+        border-left: 10rpx solid #fff;
+      }
+
+      // 第2和第三个超链接
+      &:nth-child(2),
+      &:nth-child(3){
+        border-bottom: 10rpx solid #fff;
+      }
+
+      image{
+        width: 100%;
+        height: 100%;
+        
+        
+      }
+    }
+  }
+  
+}

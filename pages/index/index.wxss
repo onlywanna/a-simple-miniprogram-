@@ -14,3 +14,25 @@
 .index_cate navigator image {
   width: 100%;
 }
+.floor_group .floor_title image {
+  width: 100%;
+}
+.floor_group .floor_content {
+  overflow: hidden;
+}
+.floor_group .floor_content navigator {
+  float: left;
+  width: 33.333%;
+}
+.floor_group .floor_content navigator:nth-last-child(-n+4) {
+  height: 207.06083691rpx;
+  border-left: 10rpx solid #fff;
+}
+.floor_group .floor_content navigator:nth-child(2),
+.floor_group .floor_content navigator:nth-child(3) {
+  border-bottom: 10rpx solid #fff;
+}
+.floor_group .floor_content navigator image {
+  width: 100%;
+  height: 100%;
+}
