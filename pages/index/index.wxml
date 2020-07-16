@@ -1,3 +1,7 @@
-<view>首页</view>
+<view class="mall_index">
+  <!-- 搜索框开始 -->
+    <SearchInput></SearchInput>
+  <!-- end -->
 
-<text class="iconfont icon-gouwuchekong"></text>
+
+</view>
