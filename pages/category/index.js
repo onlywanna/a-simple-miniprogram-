@@ -16,7 +16,45 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.getCates()
+  // // 0. web中的本地存储和小程序中的本地存储的区别
+  //       1.写代码的方式不一样了
+  //          web:localStorage.setItem("key","value")  localStorage.getItem("key")
+  //          小程序中:wx.setStorageSync("key", "value")  wx.getStrorageSync("key")
+          //  2. 存的时候，有没有做类型转换
+              // web: 不管存入的是什么类型的数据， 最终都会先调用下toString(),把数据变成了字符串再存进去
+              // 小程序：不存在类型转换的操作, 存什么数据进去，获取的时候就是什么类型 
+
+    /*
+    1. 先判断一下本地存储中有没有旧的数据
+      {time:Data.now(),data:[...]}
+    2. 没有旧数据 直接发送新的请求
+    3. 有旧数据, 同时旧的数据也没有过期，就使用本地存储中得旧数据即可。
+    */
+
+
+    // this.getCates()
+
+    // 1.获取本地存储的数据(小程序中也是存在本地存储技术的)
+    const alreadyStorageCates = wx.getStorageSync("cates");
+    // 2. 判断
+    if(!alreadyStorageCates){
+      // 不存在 则发送请求获取数据
+      this.getCates()
+    }else{
+      // 有旧的数据，定义过期时间， 10s改成5分钟
+      if(Date.now() - alreadyStorageCates.time > 1000 *60*5){
+        // 重新发送请求
+        this.getCates()
+      }
+      else{
+        console.log("可以使用缓存，并且它没有过期")
+        this.Cates = alreadyStorageCates.data
+        this.constructFirstPage()
+      }
+    }
+
+      
+
   },
 
   // 获取分类数据
@@ -24,21 +62,35 @@ Page({
     request({
       url:"https://api-hmugo-web.itheima.net/api/public/v1/categories"
     }).then((res) =>{ 
-    
       console.log(res)
       this.Cates = res.data.message
-      // 构造左侧的大菜单数据
-      let leftMenuList = this.Cates.map(function(item){
-        return item.cat_name
-      })
+      
+      // 把接口的数据存入到本地存储中
+      wx.setStorageSync("cates", {time:Date.now(), data:this.Cates});
+      //展示页面
+      this.constructFirstPage()
 
-      // 构造右侧的商品数据, 这里只是第一个主页面
-      let rightContent = this.Cates[0].children
-      this.setData({
-        leftMenuList,
-        rightContent
-      })
+      // 页面展示一定要在这里放一个的。
+      // 原因：假如换一种写法，在外面先统一获取数据(函数1 --抽象了一下)，然后统一页面展示(函数2)的话，
+        // 因为获取数据这个request是个异步的操作，所以是先调用函数1 ,然后就直接执行函数2了，函数2中的数据是依赖于函数1的，就会报错。
+        //调这个bug调了四十多分钟
     })
+  },
+
+  // 构造第一个可见页面
+  constructFirstPage(){
+    // 构造左侧的大菜单数据
+    let leftMenuList = this.Cates.map(function(item){
+      return item.cat_name
+    })
+
+    // 构造右侧的商品数据, 这里只是第一个主页面
+    let rightContent = this.Cates[0].children
+    this.setData({
+      leftMenuList,
+      rightContent
+    })
+
   },
 
   // 左侧菜单的点击事件
