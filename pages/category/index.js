@@ -110,9 +110,8 @@ Page({
     this.setData({
       currentIndex : tapIndex,
       rightContent,
-
       // 重新设置右侧内容的scroll-view标签的距离顶部的距离
-      // scrollTop :0
+      scrollTop :0
     })
   }
  
