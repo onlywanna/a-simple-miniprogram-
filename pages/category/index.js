@@ -39,7 +39,22 @@ Page({
         rightContent
       })
     })
-  }
+  },
 
+  // 左侧菜单的点击事件
+  handleItemTap(e){
+    console.log(e)
+    // 1.获取被点击的标题上的索引
+    // 2.给data中的currentIndex赋值
+    // 3.根据不同的索引来渲染右侧的商品内容
+
+    const tapIndex = e.currentTarget.dataset.index 
+
+    let rightContent = this.Cates[this.data.currentIndex].children
+    this.setData({
+      currentIndex : tapIndex,
+      rightContent
+    })
+  }
  
 })
