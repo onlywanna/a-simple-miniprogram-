@@ -61,24 +61,45 @@ Page({
 
   },
 
-  // 获取分类数据
-  getCates(){
-    request({
-      url:"/categories"
-    }).then((res) =>{ 
-      console.log(res)
-      this.Cates = res.data.message
+  // // 获取分类数据
+  // getCates(){
+  //   request({
+  //     url:"/categories"
+  //   }).then((res) =>{ 
+  //     console.log(res)
+  //     this.Cates = res.data.message
       
-      // 把接口的数据存入到本地存储中
-      wx.setStorageSync("cates", {time:Date.now(), data:this.Cates});
-      //展示页面
-      this.constructFirstPage()
+  //     // 把接口的数据存入到本地存储中
+  //     wx.setStorageSync("cates", {time:Date.now(), data:this.Cates});
+  //     //展示页面
+  //     this.constructFirstPage()
 
-      // 页面展示一定要在这里放一个的。
-      // 原因：假如换一种写法，在外面先统一获取数据(函数1 --抽象了一下)，然后统一页面展示(函数2)的话，
-        // 因为获取数据这个request是个异步的操作，所以是先调用函数1 ,然后就直接执行函数2了，函数2中的数据是依赖于函数1的，就会报错。
-        //调这个bug调了四十多分钟
-    })
+  //     // 页面展示一定要在这里放一个的。
+  //     // 原因：假如换一种写法，在外面先统一获取数据(函数1 --抽象了一下)，然后统一页面展示(函数2)的话，
+  //       // 因为获取数据这个request是个异步的操作，所以是先调用函数1 ,然后就直接执行函数2了，函数2中的数据是依赖于函数1的，就会报错。
+  //       //调这个bug调了四十多分钟
+  //   })
+  // },
+
+  
+  // 获取分类数据(使用了async await的方法)
+  async getCates(){  
+    const res = await request({url:"/categories"}) 
+    // 看起来是同步操作，实则是异步操作，下面的代码要等这行代码执行完才能够执行
+  
+    console.log(res)
+    this.Cates = res
+    
+    // 把接口的数据存入到本地存储中
+    wx.setStorageSync("cates", {time:Date.now(), data:this.Cates});
+    //展示页面
+    this.constructFirstPage()
+
+    // 页面展示一定要在这里放一个的。
+    // 原因：假如换一种写法，在外面先统一获取数据(函数1 --抽象了一下)，然后统一页面展示(函数2)的话，
+      // 因为获取数据这个request是个异步的操作，所以是先调用函数1 ,然后就直接执行函数2了，函数2中的数据是依赖于函数1的，就会报错。
+      //调这个bug调了四十多分钟
+    
   },
 
   // 构造第一个可见页面

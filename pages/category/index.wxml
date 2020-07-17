@@ -46,13 +46,8 @@
             <image src="{{item2.cat_icon}}" mode ="widthFix"> </image>  
             <view class="goods_name">{{item2.cat_name}}</view>
           </navigator>
-        
-            
         </view>
-            
-        
-      </view>
-        
+      </view>   
     </scroll-view>
     
   </view>
