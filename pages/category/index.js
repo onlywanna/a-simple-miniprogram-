@@ -6,7 +6,11 @@ Page({
     // 右侧的商品数据
     rightContent:[],
     // 选中的菜单项的索引
-    currentIndex:0
+    currentIndex:0,
+
+    // 右侧内容的滚动条距离顶部的距离
+    scrollTop:0
+
   },
 
   // 接口的返回数据
@@ -102,10 +106,13 @@ Page({
 
     const tapIndex = e.currentTarget.dataset.index 
 
-    let rightContent = this.Cates[this.data.currentIndex].children
+    let rightContent = this.Cates[tapIndex].children
     this.setData({
       currentIndex : tapIndex,
-      rightContent
+      rightContent,
+
+      // 重新设置右侧内容的scroll-view标签的距离顶部的距离
+      // scrollTop :0
     })
   }
  
