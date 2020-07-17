@@ -4,9 +4,37 @@
 }
 .cates .cates_container .left_menu {
   flex: 2;
-  background-color: lime;
+}
+.cates .cates_container .left_menu .menu_item {
+  height: 80rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30rpx;
+}
+.cates .cates_container .left_menu .active {
+  color: var(--themeColor);
+  border-left: 5rpx solid currentColor;
 }
 .cates .cates_container .right_content {
   flex: 5;
-  background-color: mediumseagreen;
+  padding: 10rpx;
+}
+.cates .cates_container .right_content .goods_group .goods_title {
+  padding: 10rpx 0;
+  text-align: center;
+  color: #ccc;
+}
+.cates .cates_container .right_content .goods_group .goods_list {
+  display: flex;
+  flex-wrap: wrap;
+}
+.cates .cates_container .right_content .goods_group .goods_list navigator {
+  width: 33.333%;
+}
+.cates .cates_container .right_content .goods_group .goods_list navigator image {
+  width: 100%;
+}
+.cates .cates_container .right_content .goods_group .goods_list navigator .goods_name {
+  text-align: center;
 }

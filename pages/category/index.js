@@ -4,7 +4,9 @@ Page({
     // 左侧的菜单数据
     leftMenuList:[],
     // 右侧的商品数据
-    rightContent:[]
+    rightContent:[],
+    // 选中的菜单项的索引
+    currentIndex:0
   },
 
   // 接口的返回数据

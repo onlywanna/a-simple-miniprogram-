@@ -4,11 +4,45 @@
         display: flex;
         .left_menu{
             flex: 2;
-            background-color: lime;
+            .menu_item{
+                height: 80rpx;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 30rpx;
+            }
+            
+            .active{
+                color:var(--themeColor);
+                border-left: 5rpx solid currentColor;
+            }
         }
         .right_content{
             flex: 5;
-            background-color: mediumseagreen;
+            padding: 10rpx;
+            .goods_group{
+                .goods_title{
+                    padding: 10rpx 0;
+                    text-align: center;
+                    color: #ccc;
+                }
+                .goods_list{
+                    display: flex;
+                    flex-wrap: wrap;
+                    navigator{
+                        width: 33.333%;
+                        image{
+                            width: 100%;
+                        }
+                        .goods_name{
+                            
+                            text-align: center;
+                        }
+                    }
+                }
+            }
+
+
         }
     }
 
