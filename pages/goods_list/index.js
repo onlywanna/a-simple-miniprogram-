@@ -1,3 +1,22 @@
+/**
+ * 1.用户上滑页面 滚动条触底，开始加载下一页数据
+ *    1. 找到滚动条触底事件   (微信小程序官方文档中去找 )
+ *    2. 判断还有没有下一页数据， 没有地话就弹出一个提示
+ *        1. 获取总页数
+ *          总页数 = Math.ceil( 总条数 / 每页的条数 )
+ *        2. 获取当前页码
+ *        3. 判断一下 当前地页码是都大于等于 总页数
+ *            表示 没有下一条数据
+ *    3. 假如还有下一页，加载下一页数据
+ *        1. 当前页码 ++ 
+ *        2. 重新发送请求
+ *        3. 数据请求回来。要对data中的数组 进行拼接，而不是全部替换。
+ * 
+ */
+
+
+
+
 import {request} from "../../request/index.js"
 // pages/goods_list/index.js
 Page({
@@ -32,6 +51,13 @@ Page({
     pagenum	:1,
     pagesize:10
   },
+
+  // 总页数
+  totalPages:1,
+
+
+
+
   /**
    * 生命周期函数--监听页面加载
    */
@@ -40,14 +66,38 @@ Page({
     this.getGoodsList()
   },
 
+  // 页面上滑 滚动条触底事件
+  onReachBottom(){
+    // 判断还有没有下一页数据
+    if(this.QueryParams.pagenum >= this.totalPages){
+      //没有了  
+      wx.showToast({
+        title: '没有更多了~ ~ ~',
+      })
+    }
+    else{
+      // 还有下一页
+      this.QueryParams.pagenum ++
+      this.getGoodsList()
+    }
+
+  },
+
 
   // 获取商品列表数据
   async getGoodsList(){
     const res = await request({url: "/goods/search", data: this.QueryParams})
+
+    // 获取总条数
+    const total = res.total
+    // 计算总页数
+    this.totalPages = Math.ceil( total / this.QueryParams.pagesize)
+    console.log(this.totalPages)
+    
     console.log(res)
 
     this.setData({
-      goodsList:res.goods
+      goodsList: [...this.data.goodsList, ...res.goods]
     })
   },
 
