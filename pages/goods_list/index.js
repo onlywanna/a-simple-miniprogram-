@@ -1,6 +1,6 @@
+import {request} from "../../request/index.js"
 // pages/goods_list/index.js
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -22,8 +22,35 @@ Page({
         isActive:false
       }
       
-    ]
+    ],
+    goodsList:[]
   },
+  //接口要的数据
+  QueryParams:{
+    query:"",
+    cid:"",
+    pagenum	:1,
+    pagesize:10
+  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    this.QueryParams.cid = options.cid
+    this.getGoodsList()
+  },
+
+
+  // 获取商品列表数据
+  async getGoodsList(){
+    const res = await request({url: "/goods/search", data: this.QueryParams})
+    console.log(res)
+
+    this.setData({
+      goodsList:res.goods
+    })
+  },
+
   handleTabItemChange(e){
     const CurrentIndex = e.detail.index
     let tabs = this.data.tabs
@@ -32,17 +59,6 @@ Page({
     })
     this.setData({
       tabs
-    })
-    
-  },
- 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-    console.log(options)
-  },
-
-
-
+    })   
+  }
 })

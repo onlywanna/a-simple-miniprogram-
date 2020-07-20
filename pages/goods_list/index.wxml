@@ -2,23 +2,29 @@
 <Tabs tabs = "{{tabs}}" bindtabItemChange = "handleTabItemChange" >
   <block wx:if = "{{tabs[0].isActive}}">
     <view class="first_tab">
-      <navigator class="goods_item">
+      <navigator class="goods_item" 
+        wx:for = "{{goodsList}}"
+      >
         <!-- 左侧 图片容器 -->
         <view class="goods_img_wrap">
-          <image mode ="widthFix" src="http://image2.suning.cn/uimg/b2c/newcatentries/0070078057-000000000634917020_1_400x400.jpg"></image>
+          <image 
+          mode ="widthFix" 
+          src="{{item.goods_small_logo?item.goods_small_logo:'http://image2.suning.cn/uimg/b2c/newcatentries/0000000000-000000000168415104_1_400x400.jpg'}}"></image>
         </view>
         <!-- 右侧 商品容器 -->
         <view class="goods_info_wrap">
-          <view class = " goods_name">创维（Skyworth）42X6 42英寸10核智能酷开网络平板液晶电视（黑色）</view>
-          <view class="goods_price">1899</view>
+          <view class = "goods_name">{{item.goods_name}}</view>
+          <view class="goods_price">{{item.goods_price}}</view>
         </view>
       </navigator>
     </view>
       
+
+
       
       
   </block>
   <block wx:elif ="{{tabs[1].isActive}}">1</block>
   <block wx:elif = "{{tabs[2].isActive}}">2</block>
+  <block wx:elif = "{{tabs[3].isActive}}">3</block>
 </Tabs>
-x
