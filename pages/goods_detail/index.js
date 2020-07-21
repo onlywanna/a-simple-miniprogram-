@@ -2,7 +2,6 @@
 import {request} from "../../request/index.js"
 
 Page({
-
   /*页面的初始数据*/
   data: {
     goodsObj:{}
@@ -24,7 +23,5 @@ async  getGoodsDetail(){
   this.setData({
     goodsObj:result
   })
-
 }
-
 })
