@@ -1,6 +1,5 @@
 // 同步发送异步代码的次数
 let ajaxTimes = 0
-
 export const request = function(params){
     ajaxTimes++
     // 显示加载中 效果
@@ -29,7 +28,5 @@ export const request = function(params){
                 }
             }
         });
- 
     })
-
 }
