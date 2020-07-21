@@ -72,6 +72,10 @@ Page({
   onLoad: function (options) {
     this.QueryParams.cid = options.cid
     this.getGoodsList()
+
+   
+
+  
   },
 
   // 页面上滑 滚动条触底事件
@@ -113,13 +117,10 @@ Page({
     // 计算总页数
     this.totalPages = Math.ceil( total / this.QueryParams.pagesize)
     console.log(this.totalPages)
-    
     console.log(res)
-
     this.setData({
       goodsList: [...this.data.goodsList, ...res.goods]
     })
-
     // 关闭下拉刷新的窗口   如果没有调用下拉刷新的窗口, 直接关闭也不会报错
     wx.stopPullDownRefresh()
   },
