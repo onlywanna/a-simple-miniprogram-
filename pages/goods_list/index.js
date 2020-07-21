@@ -15,6 +15,14 @@
  */
 
 
+/**2. 下拉刷新页面
+ *    1. 触发下拉刷新事件 需要在页面的json文件中开启一个配置项
+ *         找到 触发下拉刷新的事件  ( 微信小程序官方文档中去找 )
+ *    2. 重置 数据 数组  
+ *    3. 重置页码 为1 ,并发送请求
+      4. 数据请求回来后，需要手动关闭等待效果
+ */
+
 
 
 import {request} from "../../request/index.js"
@@ -83,6 +91,18 @@ Page({
 
   },
 
+  //页面下拉 监听用户的下拉动作
+  onPullDownRefresh(){
+    // 1.重置数组
+    this.setData({
+      goodsList:[]
+    })
+    // 2.重置页码
+    this.QueryParams.pagenum = 1
+
+    // 3.发送请求
+    this.getGoodsList()
+  },
 
   // 获取商品列表数据
   async getGoodsList(){
@@ -99,6 +119,9 @@ Page({
     this.setData({
       goodsList: [...this.data.goodsList, ...res.goods]
     })
+
+    // 关闭下拉刷新的窗口   如果没有调用下拉刷新的窗口, 直接关闭也不会报错
+    wx.stopPullDownRefresh()
   },
 
   handleTabItemChange(e){
