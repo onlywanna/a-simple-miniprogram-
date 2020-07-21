@@ -1,3 +1,7 @@
+page{
+    padding-bottom: 90rpx;
+}
+
 .detail_swiper{
     swiper{
         height: 65vw;
@@ -7,7 +11,7 @@
         }
     }
     
-}
+}  
 
 .goods_price{
     padding: 15rpx;
@@ -49,13 +53,52 @@
     }
 }
 
-
-
 .goods_info{
     .goods_info_title{
         font-size: 32rpx;
         color: var(--themeColor);
         font-weight: 600;
         padding: 20rpx;
+    }
+}
+
+.btm_tool{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    display: flex;
+    height: 90rpx;
+    .tool_item{
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex: 1;
+        button{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+        }
+    }
+    .btn_cart{
+        flex: 2;
+        color: #fff;
+        background-color: #ffa500;
+        font-size: 30rpx;
+        font-weight: 600;
+
+    }
+    .btn_buy{
+        flex: 2;
+        color: #fff;
+        background-color: #eb4450;
+        font-size: 30rpx;
+        font-weight: 600;
     }
 }
