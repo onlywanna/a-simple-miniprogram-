@@ -21,7 +21,14 @@ Page({
 async  getGoodsDetail(){
   const result = await request({url:"/goods/detail", data:this.QueryParams})
   this.setData({
-    goodsObj:result
+    goodsObj:{
+      goods_name:result.goods_name,
+      goods_price:result.goods_price,
+      //最好是找到后台，让他进行修改。
+      //临时自己改  确保后台存在 1. webp 和1.jpg的格式    就批量替换一下。
+      goods_introduce:result.goods_introduce.replace(/\.webp/g,'.jpg'),
+      pics:result.pics
+    }
   })
 }
 })
