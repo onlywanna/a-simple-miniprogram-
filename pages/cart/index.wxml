@@ -1,7 +1,6 @@
 <!-- 收获地址 -->
-
 <view class="receive_address_row">
-<!-- 当收货地址不存在的时候 按钮显示 -->
+  <!-- 当收货地址不存在的时候 按钮显示 -->
   <view class="address_btn" wx:if ="{{!address.userName}}">
     <button type="primary" plain bindtap="handleChooseAddress">获取收货地址</button>
   </view>
@@ -13,5 +12,37 @@
       <view>{{address.all}}</view>
     </view>
     <view class="user_phone">{{address.telNumber}}</view>
+  </view>
+</view>
+
+<!-- 购物车内容 -->
+<view class="cart_content">
+  <view class="cart_title">购物车</view>
+  <view class="cart_main">
+    <view class="cart_item">
+      <!-- 复选框 -->
+      <view class="cart_chk_wrap">
+        <checkbox-group>
+          <checkbox></checkbox>
+        </checkbox-group>
+      </view>
+      <!-- 商品图片 -->
+      <navigator class="cart_img_wrap">
+        <image mode="widthFix" src="http://image1.suning.cn/uimg/b2c/newcatentries/0070177617-000000000155539413_2_400x400.jpg"></image>
+      </navigator>
+      <!-- 商品信息 -->
+      <view class="cart_info_wrap">
+        <view class="goods_name">英雄联盟点券代充英雄联盟点券代充英雄联盟点券代充英雄联盟点券代充英雄联盟点券代充英雄联盟点券代充</view>
+        <view class="goods_price_wrap">
+          <view class="good_price">9999</view>
+          <view class="cart_num_tool">
+            <view class="num_edit">-</view>
+            <view class="goods_num">10</view>
+            <view class="num_edit">+</view>
+          </view>
+
+        </view>
+      </view>
+    </view>
   </view>
 </view>
