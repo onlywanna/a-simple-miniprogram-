@@ -7,6 +7,16 @@
  * 
  */
 
+
+ /**
+  * 3. 点击 加入购物车
+  *     1.先绑定点击事件
+  *     2.获取缓存中的购物车数据，数组格式，对象格式也行
+  *     3.先判断当前的商品是否已经存在于购物车中
+  *     4.已经存在， 修改商品数据， 执行购物车数量++, 重新把购物车数组 填充到缓存中
+  *     5. 不存在于购物车的数组中， 直接给购物车数组添加一个新元素， 带上购买数量属性 num， 重新把购物车数组填充到缓存当中。
+  *     6.弹出提示
+  */
 import {request} from "../../request/index.js"
 
 Page({
@@ -18,7 +28,7 @@ Page({
     goods_id: 0
   },
 
-  // 商品对象  创建的目的是为了构建图片预览的url数组
+  // 商品对象(包含了当前商品的商品信息)  创建的目的是为了构建图片预览的url数组
   GoodsInfo:{},
   
   /* 生命周期函数--监听页面加载*/
@@ -54,6 +64,29 @@ Page({
     wx.previewImage({
       current: urls[tapIndex], // 当前显示图片的http链接
       urls // 需要预览的图片http链接列表
+    })
+  },
+
+  // 点击加入购物车
+  handleCartAdd(e){
+    // 1. 获取缓存中的购物车 数组
+    let cart = wx.getStorageSync('cart') || []
+    // 2.判断
+    let index = cart.findIndex(i=>i.goods_id === this.GoodsInfo.goods_id)
+    if(index === -1){
+      this.GoodsInfo.num = 1 //这个num是新加进去的属性，代表着商品的购买数
+      cart.push(this.GoodsInfo)
+    }else{
+      cart[index].num++
+    }
+
+    // 把购物车重新添加到缓存中
+    wx.setStorageSync('cart', cart)
+    wx.showToast({
+      title: '加入购物车成功',
+      icon:"success",
+      // true 防止用户 手抖疯狂点击按钮
+      mask:true
     })
   }
 })
