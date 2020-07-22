@@ -75,6 +75,8 @@ Page({
     let index = cart.findIndex(i=>i.goods_id === this.GoodsInfo.goods_id)
     if(index === -1){
       this.GoodsInfo.num = 1 //这个num是新加进去的属性，代表着商品的购买数
+
+      this.GoodsInfo.isChecked = true
       cart.push(this.GoodsInfo)
     }else{
       cart[index].num++

@@ -19,6 +19,13 @@
   1 获取本地存储中的地址数据
   2 把数据设置给data中的一个变量
 
+3. onShow
+   0 回到了商品详情页面， 第一次添加商品的时候 手动添加了属性
+    1 num = 1
+    2 checked = true
+  1 获取缓存中的购物车数组
+  2 把购物车数据填充到data中
+
 
 */
 
@@ -27,14 +34,18 @@ import {getSetting,chooseAddress,openSetting} from "../../utils/asyncWx.js"
 Page({
   /*页面的初始数据*/
   data: {
-    address:{}
+    address:{},
+    cart:[],
   },
   onShow(){
     const address = wx.getStorageSync('address')
     this.setData({
       address
     })
-
+    const cart = wx.getStorageSync('cart')
+    this.setData({
+      cart,
+    })
   },
 
   /* 生命周期函数--监听页面加载*/
