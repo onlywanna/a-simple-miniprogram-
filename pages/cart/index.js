@@ -12,7 +12,11 @@
       scope的值为false
       1. 则需要用户 自己打开 总的授权设置页面( wx.openSetting)  让用户选中对应按钮，让图标边绿，scope的值也会相应的改变。
       2. 然后再调用wx.chooseAddress
+
+    4.把获取到的收货地址存入到本地存储中
 */
+
+import {getSetting,chooseAddress,openSetting} from "../../utils/asyncWx.js"
 
 Page({
 // 点击收货地址 
@@ -30,35 +34,23 @@ Page({
   },
 
 
+
   // 1.点击获取地址
-  handleChooseAddress(){
-    // 1.获取 权限状态
-    wx.getSetting({
-      success: (result) => {
-          // 2.获取权限状态 要是发现一些 属性名很怪异的时候， 都要使用 [] 形式来获取属性值
-        const scopeOfAddress = result.authSetting["scope.address"]
-
-        if(scopeOfAddress === true || scopeOfAddress === undefined){
-          wx-wx.chooseAddress({
-            success: (result1) => {
-              console.log(result1)
-            }
-          })
-        }
-        else{
-          // 3. 用户 以前拒绝过授予权限 先诱导用户 打开授权页面
-          wx.openSetting({
-            success: (result2) => {   //当点击返回按钮的时候,触发success
-              // 4. 可以调用 获取收获地址代码
-              wx.chooseAddress({  //只有当权限被授予，也就是上面的scopeOfAddress的值为true的时候，调用这个才会有反应。   上面哪个页面的按钮选中，就可以将scopeOfAddress弄为true
-                success: (result3) => {
-                },
-              })
-            }
-          })
-        }
-      },
-    })
-
+  async handleChooseAddress(){
+    try {
+      // 1. 获取权限状态  
+      const res1 = await getSetting()
+      const scopeOfAddress = res1.authSetting["scope.address"]
+      if(scopeOfAddress === false){    // 2.判断权限状态
+        await openSetting()       
+      }
+      // 4.调用获取收货地址的api
+      const res2 = await chooseAddress()
+      // 5.存入到缓存中
+      wx.setStorageSync('address', res2) 
+      console.log(res2)
+    }catch(error) {
+      console.log(error)
+    }
   }
 })
