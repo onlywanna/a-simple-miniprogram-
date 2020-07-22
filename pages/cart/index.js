@@ -14,17 +14,26 @@
       2. 然后再调用wx.chooseAddress
 
     4.把获取到的收货地址存入到本地存储中
+
+2. 页面加载完毕
+  1 获取本地存储中的地址数据
+  2 把数据设置给data中的一个变量
+
+
 */
 
 import {getSetting,chooseAddress,openSetting} from "../../utils/asyncWx.js"
 
 Page({
-// 点击收货地址 
-
-
-
   /*页面的初始数据*/
   data: {
+    address:{}
+  },
+  onShow(){
+    const address = wx.getStorageSync('address')
+    this.setData({
+      address
+    })
 
   },
 
@@ -46,6 +55,7 @@ Page({
       }
       // 4.调用获取收货地址的api
       const res2 = await chooseAddress()
+      res2.all = res2.provinceName + res2.cityName + res2.countyName + res2.detailInfo
       // 5.存入到缓存中
       wx.setStorageSync('address', res2) 
       console.log(res2)
