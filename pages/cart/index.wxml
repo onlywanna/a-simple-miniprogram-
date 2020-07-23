@@ -19,6 +19,8 @@
 <view class="cart_content">
   <view class="cart_title">购物车</view>
   <view class="cart_main">
+  <!-- 当cart数组 长度不为0时，显示商品信息 -->
+  <block wx:if ="{{cart.length !== 0}}">
     <view class="cart_item" wx:for="{{cart}}" wx:key="goods_id">
       <!-- 复选框 -->
       <view class="cart_chk_wrap">
@@ -44,6 +46,13 @@
         </view>
       </view>
     </view>
+  </block>
+  <block wx:else>
+    <image 
+    mode="widthFix" 
+    src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1595485610749&di=6efc44bf561d485f3cd8f5cf400d6b66&imgtype=0&src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2Fe1b1467beea0a9c7d6a56b32bac6d7e5dcd914f7c3e6-YTwUd6_fw658">
+    </image>
+  </block>
   </view>
 </view>
 

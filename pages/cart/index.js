@@ -196,7 +196,7 @@ Page({
     else{
       cart[index].num += operation
     }
-
+    
     this.setCart(cart)
     this.setData({
       cart
