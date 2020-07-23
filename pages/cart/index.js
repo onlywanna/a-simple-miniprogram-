@@ -45,7 +45,17 @@
   3. 商品对象的选中状态 取反
   4 重新填充到data中和缓存中
   5 重新计算全选，总价格，总数量
+
+7 全选和反选功能
+  1. 全选的复选框绑定事件 changge
+  2. 获取data中的全选变量
+  3. 直接取反
+  4. 遍历购物车数组，让里面的购物车商品的isChecked 进行改变
+  5  把购物车数组 和allChecked  重新设置回data和缓存中
   */
+
+
+
 
 import {getSetting,chooseAddress,openSetting} from "../../utils/asyncWx.js"
 
@@ -140,5 +150,17 @@ Page({
       totalNum,
     })
 
+  },
+  // 商品全选功能
+  handleItemAllChecked(){
+    let {cart, allChecked} = this.data  //1.获取data中的数据
+    allChecked = !allChecked  //2.修改值
+    cart.forEach((v,i)=>v.isChecked=allChecked) //3.循环修改cart数组 中的商品选中状态
+    this.setCart(cart) //4. 把修改后的值设置回data或缓存中
+    this.setData({
+      cart,
+      allChecked
+    })
+    wx.setStorageSync("cart",cart)
   }
-})
+  })
