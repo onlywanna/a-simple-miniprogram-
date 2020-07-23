@@ -57,6 +57,10 @@
   1. "+" "-" 按钮 绑定同一个点击事件 区分的关键是 自定义属性
   2. 传递被点击的商品id  goods_id
   3. 获取到data中的购物车数组
+  当购物车的数量=1， 同时用户点击了 "-", 弹窗提示 询问用户 是否要删除
+    可利用wx.showModal 这个api
+      1. 确定 直接执行删除
+      2. 取消 什么都不做
   4 .修改商品数量的数量 num
   5. cart 重新设置回data和缓存中
   */
@@ -64,7 +68,7 @@
 
 
 
-import {getSetting,chooseAddress,openSetting} from "../../utils/asyncWx.js"
+import {getSetting,chooseAddress,openSetting,showModal} from "../../utils/asyncWx.js"
 
 Page({
   /*页面的初始数据*/
@@ -172,13 +176,27 @@ Page({
   },
 
   // 商品数量的编辑功能
-  handleItemNumEdit(e){
+  async handleItemNumEdit(e){
+
+
     // 1. 获取传递过来的参数
     const {operation,id} = e.currentTarget.dataset
     // 2.获取购物车数组
     let {cart} = this.data
     const index = cart.findIndex(v=>v.goods_id === id)
-    cart[index].num += operation
+    
+    //判断是否要执行删除
+    if(cart[index].num ===1 && operation === -1){
+      const res = await showModal({// 这个函数进行了promise形式的封装。
+          title: '提示',
+          content: '您是否要删除这个商品？'
+        })
+      if(res.confirm){cart.splice(index,1)}//如果不用promise的话, 因为这是异步的，所以会出现，下面的各种存data，缓存都执行完了再执行这个代码，就会报错
+    }
+    else{
+      cart[index].num += operation
+    }
+
     this.setCart(cart)
     this.setData({
       cart

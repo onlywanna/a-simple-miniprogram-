@@ -54,3 +54,24 @@ export const openSetting = ()=>{
     })
   })
 }
+
+
+/**
+ * promise形式的 showModal
+ * 
+ */
+
+export const showModal = (params)=>{
+  return new Promise((resolve, reject) =>{
+    wx.showModal({
+      ...params,
+      success:(result)=>{
+        resolve(result)
+      },
+      fail:(err)=>{
+        reject(err)
+      },
+      complete:()=>{}
+    })
+  })
+}
