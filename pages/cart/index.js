@@ -31,7 +31,15 @@
 4. 全选的实现，数据的展示
   1 onShow 获取缓存中的购物车数组
   2 根据购物车中的商品数据来进行计算， 所有的商品全被选中即 checked 为true 全选才被选中
-*/
+
+5. 总价格和总数量
+  1. 都需要商品被选中， 才参与计算
+  2. 获取购物车数组
+  3. 遍历
+  4. 判断商品是否被选中
+  5. 总价格和总数量算一下，并设置会data中
+
+  */
 
 import {getSetting,chooseAddress,openSetting} from "../../utils/asyncWx.js"
 
@@ -40,7 +48,8 @@ Page({
   data: {
     address:{},
     cart:[],
-    allChecked:false
+    allChecked:false,
+    totalMoney:0
   },
   onShow(){
     const address = wx.getStorageSync('address')
@@ -50,10 +59,27 @@ Page({
     const cart = wx.getStorageSync('cart') ||[]
 
     // 1.计算全选
-    const allChecked = cart.every(v => v.isChecked)
+    // const allChecked = cart.every(v => v.isChecked)
+    let allChecked = true
+
+    // 1. 总价格  总数量
+    let totalMoney = 0
+    let totalNum = 0
+    cart.forEach(v=>{
+      if(v.isChecked){
+        totalMoney += v.num * v.goods_price
+        totalNum += v.num
+      }else{
+        allChecked=false
+      }
+    })
+    // 判断数组是否为空？
+    allChecked = cart.length===0?false:allChecked
     this.setData({
       cart,
-      allChecked
+      allChecked,
+      totalMoney,
+      totalNum
     })
 
 

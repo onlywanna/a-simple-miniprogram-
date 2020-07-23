@@ -60,13 +60,13 @@
   <!-- 总价格 -->
   <view class="total_price_wrap">
     <view class="total_price">
-      合计： <text class="total_price_text">￥99</text>
+      合计： <text class="total_price_text">￥{{totalMoney}}</text>
     </view>
     <view>包含运费</view>
   </view>
 
   <!-- 结算 -->
-  <view class="order_pay_wrap">结算</view>
+  <view class="order_pay_wrap">结算{{totalNum}}</view>
 
 </view>
 
