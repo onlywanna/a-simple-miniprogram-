@@ -11,7 +11,7 @@
  *            2.这些开发者就可以公用这个appid和它的开发权限了
  * 
  * 3. 当点击支付按钮的时候
- *    1. 先判断缓存中有没有token
+ *    1. 先判断缓存中有没有token 
  *    2.没有跳转到授权页面， 进行获取token
  *    3. 有token...
  */
@@ -64,6 +64,19 @@ Page({
     })
     wx.setStorageSync('cart', cart)
   },
+
+  // 点击支付
+  handleOrderPay(){
+    const token = wx.getStorageSync('token')      // 1. 判断缓存中有无token
+    //如果没有的话
+    if(!token){   
+      wx.navigateTo({
+        url: '/pages/auth/index',
+      })
+      return
+    } 
+    console.log("已经存在token了")
+  }
 
 
 
