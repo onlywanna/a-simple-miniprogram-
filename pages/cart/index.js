@@ -39,6 +39,12 @@
   4. 判断商品是否被选中
   5. 总价格和总数量算一下，并设置会data中
 
+6 商品的选中
+  1. 绑定change 事件
+  2. 获取到被修改的商品对象
+  3. 商品对象的选中状态 取反
+  4 重新填充到data中和缓存中
+  5 重新计算全选，总价格，总数量
   */
 
 import {getSetting,chooseAddress,openSetting} from "../../utils/asyncWx.js"
@@ -57,31 +63,12 @@ Page({
       address
     })
     const cart = wx.getStorageSync('cart') ||[]
-
-    // 1.计算全选
-    // const allChecked = cart.every(v => v.isChecked)
-    let allChecked = true
-
-    // 1. 总价格  总数量
-    let totalMoney = 0
-    let totalNum = 0
-    cart.forEach(v=>{
-      if(v.isChecked){
-        totalMoney += v.num * v.goods_price
-        totalNum += v.num
-      }else{
-        allChecked=false
-      }
-    })
-    // 判断数组是否为空？
-    allChecked = cart.length===0?false:allChecked
+    this.setCart(cart)
     this.setData({
-      cart,
-      allChecked,
-      totalMoney,
-      totalNum
+      cart
     })
-
+    wx.setStorageSync('cart', cart)
+  
 
   },
 
@@ -110,5 +97,48 @@ Page({
     }catch(error) {
       console.log(error)
     }
+  },
+
+  // 商品的选中
+  handleItemChange(e){
+    // 1.获取被修改的商品的id
+    const goods_id = e.currentTarget.dataset.id
+    console.log(goods_id)
+    // 2.获取购物车数组
+    let {cart} = this.data
+    // 3.找到被修改的商品对象
+    let index = cart.findIndex(v=>v.goods_id === goods_id)
+    // 4.选中状态取反
+    cart[index].isChecked = ! cart[index].isChecked
+    // 5. 把购物车数据重新设置回data中和缓存中
+    this.setData({
+      cart
+    })
+    this.setCart(cart)
+    wx.setStorageSync('cart', cart)
+
+  },
+  // 设置购物车状态， 重新计算 底部工具栏的数量， 全选 总价格 购买的数量
+  setCart(cart){
+    let allChecked = true
+    // 1. 总价格  总数量
+    let totalMoney = 0
+    let totalNum = 0
+    cart.forEach(v=>{
+      if(v.isChecked){
+        totalMoney += v.num * v.goods_price
+        totalNum += v.num
+      }else{
+        allChecked=false
+      }
+    })
+    // 判断数组是否为空？
+    allChecked = cart.length===0?false:allChecked
+    this.setData({
+      allChecked,
+      totalMoney,
+      totalNum,
+    })
+
   }
 })
