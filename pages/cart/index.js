@@ -52,6 +52,13 @@
   3. 直接取反
   4. 遍历购物车数组，让里面的购物车商品的isChecked 进行改变
   5  把购物车数组 和allChecked  重新设置回data和缓存中
+
+8. 商品数量的编辑功能
+  1. "+" "-" 按钮 绑定同一个点击事件 区分的关键是 自定义属性
+  2. 传递被点击的商品id  goods_id
+  3. 获取到data中的购物车数组
+  4 .修改商品数量的数量 num
+  5. cart 重新设置回data和缓存中
   */
 
 
@@ -162,5 +169,21 @@ Page({
       allChecked
     })
     wx.setStorageSync("cart",cart)
+  },
+
+  // 商品数量的编辑功能
+  handleItemNumEdit(e){
+    // 1. 获取传递过来的参数
+    const {operation,id} = e.currentTarget.dataset
+    // 2.获取购物车数组
+    let {cart} = this.data
+    const index = cart.findIndex(v=>v.goods_id === id)
+    cart[index].num += operation
+    this.setCart(cart)
+    this.setData({
+      cart
+    })
+    wx.setStorageSync('cart', cart)
   }
+
   })
