@@ -15,8 +15,12 @@
  *    2.没有跳转到授权页面， 进行获取token
  *    3. 有token...
  *    4.创建订单 获取订单编号
- * 
+ *    5.已经完成了微信支付
+ *    6.手动删除缓存中，已经被选中了的商品
+ *    7.把删除后的购物车数据，填充回缓存
+ *    8.再跳转页面
  */
+
 
 
 import {
@@ -66,7 +70,6 @@ Page({
     this.setData({
       cart
     })
-    wx.setStorageSync('cart', cart)
   },
 
   // 点击支付
@@ -125,6 +128,13 @@ async  handleOrderPay(){
     // const res = await request({url:"/my/orders/chkOrder",method:"POST",header,data:{order_number}})  
 
     await showToast({title:"支付成功"})
+
+    // 8.删除缓存中，已经支付的商品
+    let newCart = wx.getStorageSync('cart')
+    newCart = newCart.filter(v=>!v.isChecked)
+    console.log(newCart)
+    wx.setStorageSync('cart', newCart)
+
     wx.navigateTo({
       url: '/pages/order/index',
     })
