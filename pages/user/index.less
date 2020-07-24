@@ -1,3 +1,10 @@
+page{
+    background-color: #edece8;
+}
+
+
+
+
 .user_info_wrap{
     position: relative;
     height: 45vh;
@@ -43,3 +50,46 @@
         border-radius: 10rpx;
     }
 }
+
+.user_content {
+	position: relative;
+    .user_main {
+			position: absolute;
+			width: 90%;
+			left: 50%;
+			transform: translateX(-50%);
+			top: -40rpx;
+      .history_wrap {
+				background-color: #fff;
+				display: flex;
+        navigator {
+					flex: 1;
+					text-align: center;
+					padding:10rpx 0;
+          .his_num {
+						color:var(--themeColor)
+          }
+        }
+      }
+      .orders_wrap {
+				background-color: #fff;
+				margin-top: 20rpx;
+        .order_title {
+					padding: 20rpx;
+					border-bottom: 1rpx solid #ccc;
+        }
+  
+        .order_content {
+					display: flex;
+          navigator {
+						padding: 15rpx 0;
+						flex: 1;
+						text-align: center;
+            .iconfont {
+							color: var(--themeColor);
+            }
+          }
+        }
+      }
+    }
+  }

@@ -6,8 +6,52 @@
       <view class="user_name">{{userInfo.nickName}}</view>
     </view>
   </view>
-
-
   <navigator url="/pages/login/index" class="user_btn"  wx:else>登录</navigator>
- 
+</view>
+
+<view class="user_content">
+  <!-- 历史足迹 -->
+  <view class="user_main">
+    <view class="history_wrap">
+      <navigator>
+        <view class="his_num">0</view>
+        <view class="his_name">收藏的店铺</view>
+      </navigator>
+      <navigator>
+        <view class="his_num">0</view>
+        <view class="his_name">收藏的商品</view>
+      </navigator>
+      <navigator>
+        <view class="his_num">0</view>
+        <view class="his_name">关注的商品</view>
+      </navigator>
+      <navigator>
+        <view class="his_num">0</view>
+        <view class="his_name">我的足迹</view>
+      </navigator>
+    </view>
+    <!-- 我的订单 -->
+    <view class="orders_wrap">
+      <view class="order_title">我的订单</view>
+      <view class="order_content">
+
+        <navigator>
+          <view class="iconfont icon-dingdan"></view>
+          <view class="order_name">全部订单</view>
+        </navigator>
+        <navigator>
+          <view class="iconfont icon-daifukuan"></view>
+          <view class="order_name">待付款</view>
+        </navigator>
+        <navigator>
+          <view class="iconfont icon-daishouhuo"></view>
+          <view class="order_name">待收货</view>
+        </navigator>
+        <navigator>
+          <view class="iconfont icon-tuikuan"></view>
+          <view class="order_name">退款/退货</view>
+        </navigator>
+      </view>
+    </view>
+  </view>
 </view>
