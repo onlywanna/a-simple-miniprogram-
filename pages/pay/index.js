@@ -85,7 +85,7 @@ async  handleOrderPay(){
     } 
     // 3.创建订单
     //3.1 准备请求头参数
-    const header = {Authorization:token}
+    // const = {Authorization:token} //已经封装了
       // 3.2准备请求体参数
     const order_price = this.data.totalMoney
     const consignee_addr = this.data.address.all
@@ -98,12 +98,12 @@ async  handleOrderPay(){
     }))
     const orderParams = {order_price,consignee_addr,goods}
     // 4.准备发送请求 创建订单 ，获取订单编号 (因为没有后台, 这里就用假数据了, 真数据可以看笔记的截图)
-    // const {order_number} = await request({url:"/my/orders/create",method:"POST",data:orderParams,header})
+    // const {order_number} = await request({url:"/my/orders/create",method:"POST",data:orderParams})
     
     const order_number = "HMDD20200724000000001058" //假数据
   
     // 5.发起预支付接口  也假数据
-    // const {pay} = await request({url:"/my/orders/req_unifiedorder",method:"POST",header,data:{order_number}})
+    // const {pay} = await request({url:"/my/orders/req_unifiedorder",method:"POST",data:{order_number}})
     const {pay} = {
       "message": {
         "pay": {
@@ -125,7 +125,7 @@ async  handleOrderPay(){
     // await requestPayment(pay)
   
     // 7.查询后台订单数据,以确认是否支付成功
-    // const res = await request({url:"/my/orders/chkOrder",method:"POST",header,data:{order_number}})  
+    // const res = await request({url:"/my/orders/chkOrder",method:"POST",data:{order_number}})  
 
     await showToast({title:"支付成功"})
 
