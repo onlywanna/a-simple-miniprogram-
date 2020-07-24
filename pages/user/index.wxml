@@ -1,1 +1,13 @@
-<navigator url="/pages/login/index">登录</navigator>
+<view class="user_info_wrap">
+  <view class="user_img_wrap" wx:if="{{userInfo.avatarUrl}}">
+    <image class="user_bg" src="{{userInfo.avatarUrl}}"></image>
+    <view class="user_info">
+      <image class="user_icon" src="{{userInfo.avatarUrl}}"></image>
+      <view class="user_name">{{userInfo.nickName}}</view>
+    </view>
+  </view>
+
+
+  <navigator url="/pages/login/index" class="user_btn"  wx:else>登录</navigator>
+ 
+</view>
