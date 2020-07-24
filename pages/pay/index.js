@@ -24,7 +24,8 @@ import {
   chooseAddress,
   openSetting,
   showModal,
-  showToast
+  showToast,
+  requestPayment
 } from "../../utils/asyncWx.js"
 import {request} from "../../request/index.js"
 Page({
@@ -70,6 +71,7 @@ Page({
 
   // 点击支付
 async  handleOrderPay(){
+  try {
     const token = wx.getStorageSync('token')      // 1. 判断缓存中有无token
     //2.如果没有的话
     if(!token){   
@@ -95,9 +97,42 @@ async  handleOrderPay(){
     // 4.准备发送请求 创建订单 ，获取订单编号 (因为没有后台, 这里就用假数据了, 真数据可以看笔记的截图)
     // const {order_number} = await request({url:"/my/orders/create",method:"POST",data:orderParams,header})
     
-    const order_number = "HMDD20200724000000001058"
+    const order_number = "HMDD20200724000000001058" //假数据
+  
+    // 5.发起预支付接口  也假数据
+    // const {pay} = await request({url:"/my/orders/req_unifiedorder",method:"POST",header,data:{order_number}})
+    const {pay} = {
+      "message": {
+        "pay": {
+          "timeStamp": "1564730510",
+          "nonceStr": "SReWbt3nEmpJo3tr",
+          "package": "prepay_id=wx02152148991420a3b39a90811023326800",
+          "signType": "MD5",
+          "paySign": "3A6943C3B865FA2B2C825CDCB33C5304"
+        },
+        "order_number": "HMDD20190802000000000422"
+      },
+      "meta": {
+        "msg": "预付订单生成成功",
+        "status": 200
+      }
+    }
+  
+    // 6.发起微信支付   
+    // await requestPayment(pay)
+  
+    // 7.查询后台订单数据,以确认是否支付成功
+    // const res = await request({url:"/my/orders/chkOrder",method:"POST",header,data:{order_number}})  
+
+    await showToast({title:"支付成功"})
+    wx.navigateTo({
+      url: '/pages/order/index',
+    })
+  } catch (error) {
+    await showToast({title:"支付失败"})
   }
 
+}
 
 
 

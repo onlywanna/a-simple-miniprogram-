@@ -117,3 +117,24 @@ export const login = ()=>{
     })
   })
 }
+
+
+
+/**
+ * promise形式的小程序的微信支付
+ * @param {object} pay 支付所必要的参数 
+ */
+export const requestPayment = (pay)=>{
+  return new Promise((resolve, reject) =>{
+    wx.requestPayment({
+      ...pay,
+      success:(result)=>{
+        resolve(result)
+      },
+      fail:(err) =>{
+        reject(err)
+      }
+    })
+
+  })
+}
