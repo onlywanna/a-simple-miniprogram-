@@ -14,6 +14,8 @@
  *    1. 先判断缓存中有没有token 
  *    2.没有跳转到授权页面， 进行获取token
  *    3. 有token...
+ *    4.创建订单 获取订单编号
+ * 
  */
 
 
@@ -24,6 +26,7 @@ import {
   showModal,
   showToast
 } from "../../utils/asyncWx.js"
+import {request} from "../../request/index.js"
 Page({
   /*页面的初始数据*/
   data: {
@@ -66,16 +69,33 @@ Page({
   },
 
   // 点击支付
-  handleOrderPay(){
+async  handleOrderPay(){
     const token = wx.getStorageSync('token')      // 1. 判断缓存中有无token
-    //如果没有的话
+    //2.如果没有的话
     if(!token){   
       wx.navigateTo({
         url: '/pages/auth/index',
       })
       return
     } 
-    console.log("已经存在token了")
+    // 3.创建订单
+    //3.1 准备请求头参数
+    const header = {Authorization:token}
+      // 3.2准备请求体参数
+    const order_price = this.data.totalMoney
+    const consignee_addr = this.data.address.all
+    let goods=[]
+    const cart = this.data.cart
+    cart.forEach(v=>goods.push({
+      goods_id: v.goods_id,
+      goods_number:v.num,
+      goods_price:v.goods_price
+    }))
+    const orderParams = {order_price,consignee_addr,goods}
+    // 4.准备发送请求 创建订单 ，获取订单编号 (因为没有后台, 这里就用假数据了, 真数据可以看笔记的截图)
+    // const {order_number} = await request({url:"/my/orders/create",method:"POST",data:orderParams,header})
+    
+    const order_number = "HMDD20200724000000001058"
   }
 
 
