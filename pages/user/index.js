@@ -1,12 +1,17 @@
 // pages/user/index.js
 Page({
   data:{
-    userInfo:{}
+    userInfo:{},
+    // 被收藏的商品数量
+    collectNums:0
   },
   onShow(){
     const userInfo = wx.getStorageSync('userInfo')
+    const collect = wx.getStorageSync("collect") ||[]
+
     this.setData({
-      userInfo
+      userInfo,
+      collectNums:collect.length
     })
   }
 })
