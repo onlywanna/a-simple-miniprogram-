@@ -2,6 +2,7 @@
 Page({
   /** 页面的初始数据 */
   data: {
+    collect:[],
     tabs:[
       {
         id:0,
@@ -27,6 +28,13 @@ Page({
 
     ]
   },
+  onShow(){
+    const collect = wx.getStorageSync('collect')||[]
+    this.setData({
+      collect
+    })
+  },
+
   handleTabsItemChange(e){
     const {index} = e.detail
     let {tabs} = this.data
