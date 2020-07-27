@@ -131,7 +131,7 @@ Page({
     if(index !== -1){
       //能找到,  收藏过了，在数组中删除该商品
       collect.splice(index, 1)
-      isCollect - false
+      isCollect = false
       wx.showToast({
         title:"取消成功",
         icon:"success",
