@@ -19,8 +19,8 @@
 <view class="goods_name_row">
   <view class="goods_name">{{goodsObj.goods_name}}{{goodsObj.goods_name}}</view>
   <view class="goods_collect">
-    <text class="iconfont icon-shoucang"></text>
-    <view class="collect_text">收藏</view>
+    <text class="iconfont {{isCollect?'icon-shoucang11':'icon-shoucang'}}"></text>
+    <view class="collect_text" bindtap="handleCollect">收藏</view>
   </view>
 </view>
 

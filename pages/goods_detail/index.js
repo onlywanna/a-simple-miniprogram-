@@ -118,5 +118,40 @@ Page({
       // true 防止用户 手抖疯狂点击按钮
       mask:true
     })
+  },
+
+  // 点击 商品收藏图标
+  handleCollect(){
+    let isCollect = false
+    // 1.获取缓存中的商品收藏数组
+    let collect = wx.getStorageSync('collect')||[]
+    // 2. 判断是否被收藏过
+    let index = collect.findIndex(v=>v.goods_id === this.GoodsInfo.goods_id)
+    // 3.当index != -1表示 已经收藏过了
+    if(index !== -1){
+      //能找到,  收藏过了，在数组中删除该商品
+      collect.splice(index, 1)
+      isCollect - false
+      wx.showToast({
+        title:"取消成功",
+        icon:"success",
+        mask:true
+      })
+    }else{
+      // 没有收藏
+      collect.push(this.GoodsInfo)
+      isCollect = true
+      wx.showToast({
+        title:"收藏成功",
+        icon:"success",
+        mask:true
+      })
+    }
+    // 4.把数组存入到缓存中
+    wx.setStorageSync('collect', collect)
+    // 5.修改data中的属性 isCollect
+    this.setData({
+      isCollect
+    })
   }
 })
