@@ -7,6 +7,7 @@
         </view>
     </view>
     <view class="collect_content">
+      <!-- 以下代码都是从商品列表中复制过来的 -->
       <navigator class="goods_item" 
         wx:for = "{{collect}}"
         wx:key = "goods_id"
@@ -25,4 +26,6 @@
         </view>
       </navigator>
     </view>
+   
+
 </Tabs>
