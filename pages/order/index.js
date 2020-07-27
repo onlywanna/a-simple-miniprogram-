@@ -5,6 +5,7 @@
  *        1.没有的话  跳转到授权页面
  *        2.有的话，直接往下进行
  *    1.获取url上的参数type
+ *    2.根据type来决定页面标题的数组元素，哪个被激活选中
  *    2. 根据type取发送请求获取订单数据
  *    3.渲染页面
  * 2.点击不同的标题 重新发送请求来获取和渲染数据
@@ -21,7 +22,7 @@ Page({
     tabs:[
       {
         id:0,
-        value:"综合",
+        value:"全部",
         isActive:true
       },
       
@@ -55,13 +56,14 @@ Page({
       console.log("no token...")
       return
     }
-
-
     // 1.获取当前小程序的页面栈 - 数组  ，长度最大为10
     let pages = getCurrentPages()
     // 2.数组中 索引最大的页面就是当前页面
     let currentPage = pages[pages.length -1]
     // 3.获取url上的type参数
+      const {type} = currentPage.options
+      // 4.激活选中页面标题 当type=1时 index=0
+      this.changeTitleByIndex(type-1)
     this.getOrders(currentPage.options)
   },
 
@@ -106,8 +108,8 @@ Page({
       orders
     })
   },
-  handleTabsItemChange(e){
-    const {index} = e.detail
+  //根据标题索引来激活选中 标题数组   将这个方法封装如下
+  changeTitleByIndex(index){
     let {tabs} = this.data
     tabs.forEach((v,i) => {
       i === index?v.isActive=true:v.isActive=false
@@ -115,5 +117,14 @@ Page({
     this.setData({
       tabs
     })
+  },
+
+  handleTabsItemChange(e){
+    const {index} = e.detail
+    this.changeTitleByIndex(index)
+
+    // 2. 重新发送请求， type = 1，   index = 0  , 因为这里是假数据，所以返回的一直是一个值。
+    this.getOrders(index+1)
     }
+
 })
