@@ -16,13 +16,28 @@
   *     4.已经存在， 修改商品数据， 执行购物车数量++, 重新把购物车数组 填充到缓存中
   *     5. 不存在于购物车的数组中， 直接给购物车数组添加一个新元素， 带上购买数量属性 num， 重新把购物车数组填充到缓存当中。
   *     6.弹出提示
+  * 
+  * 4. 商品收藏
+  *     1. 页面onShow的时候，加载缓存中的商品收藏的数据
+  *     2.判断当前商品是不是被收藏，
+  *         1. 是 改变页面的的图标
+  *         2.不是
+  *     3.点击商品收藏按钮
+  *         1.判断该商品是否存在于缓存数组中
+  *         2.已经存在 把该商品删除
+  *         3. 没有存在 把商品添加到收藏数组中  存入缓存中即可
+  * 
   */
+
+
+
 import {request} from "../../request/index.js"
 
 Page({
   /*页面的初始数据*/
   data: {
-    goodsObj:{}
+    goodsObj:{},
+    isCollect:false
   },
   QueryParams:{
     goods_id: 0
@@ -32,17 +47,30 @@ Page({
   GoodsInfo:{},
   
   /* 生命周期函数--监听页面加载*/
-  onLoad: function (options) {
+  onShow: function () {
+    let pages = getCurrentPages()
+    let currentPage = pages[pages.length-1]
+    let options = currentPage.options
+
     const {goods_id} = options
     this.QueryParams.goods_id = goods_id
-    this.getGoodsDetail()
+    this.getGoodsDetail()  
+
+
   },
 
   // 获取商品详数据
   async  getGoodsDetail(){
     const result = await request({url:"/goods/detail", data:this.QueryParams})
     this.GoodsInfo = result
+
+    // 1. 获取缓存中的商品收藏的数组
+    let collect = wx.getStorageSync('collect')||[]
+    // 2. 判断当前商品是否被收藏
+    let isCollect = collect.some(v=>v.goods_id === this.GoodsInfo.goods_id)
+
     this.setData({
+      isCollect,
       goodsObj:{
         goods_name:result.goods_name,
         goods_price:result.goods_price,
