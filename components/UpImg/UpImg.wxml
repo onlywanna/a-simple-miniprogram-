@@ -1,4 +1,4 @@
 <view class="up_img_wrap">
-  <image src="http://5b0988e595225.cdn.sohucs.com/images/20190724/5104a1dfc4f24be780acb590cc0fc7b5.jpeg"></image>
+  <image src="{{src}}"></image>
   <icon type="clear" size="23" color="red"></icon>
 </view>

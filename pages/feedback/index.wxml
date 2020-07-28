@@ -12,10 +12,12 @@
   <view class="fb_conntent">
     <textarea placeholder="请描述以下你的问题"></textarea>
     <view class="fb_tool">
-      <button>+</button>
-      <view class="up_img_item"><Upimg></Upimg></view>
-      <view class="up_img_item"><Upimg></Upimg></view>
-      <view class="up_img_item"><Upimg></Upimg></view>
+      <button bindtap= "handleChooseImg">+</button>
+      <view class="up_img_item"
+        wx:for="{{chooseImgs}}"
+        wx:key="*this"
+      ><Upimg></Upimg></view>
+
     </view>
   </view>
   <view class="form_btn_wrap">
