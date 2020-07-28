@@ -1,16 +1,14 @@
 <view class="search_row">
-  <input placeholder="请输入要搜索的商品"></input>
+  <input placeholder="请输入要搜索的商品" bindinput ="handleInput"></input>
   <button>取消</button>
 </view>
 
 <view class="search_content">
-  <view class="search_item">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae deleniti atque modi accusantium laudantium architecto nemo magnam hic fugit reiciendis porro nesciunt, est libero pariatur, facilis quidem quia quae animi!
-  </view>
-  <view class="search_item">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae deleniti atque modi accusantium laudantium architecto nemo magnam hic fugit reiciendis porro nesciunt, est libero pariatur, facilis quidem quia quae animi!
-  </view>
-  <view class="search_item">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae deleniti atque modi accusantium laudantium architecto nemo magnam hic fugit reiciendis porro nesciunt, est libero pariatur, facilis quidem quia quae animi!
-  </view>
+  <navigator class="search_item"
+    wx:for = "{{search_goods}}"
+    wx:key = "{{goods_id}}"
+  >
+  {{item.goods_name}}
+  </navigator>
+  
 </view>
