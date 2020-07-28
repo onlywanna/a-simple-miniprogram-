@@ -1,23 +1,27 @@
 <Tabs tabs = "{{tabs}}" bindtabItemChange = "handleTabItemChange" >
-  <view class="feedback_main">
-    <view class="fb_title">问题的种类</view>
-    <view class="fb_tips">
-      <text>功能建议</text>
-      <text>购买遇到问题</text>
-      <text>性能问题</text>
-      <text>其它</text>
-    </view>
-    <view class="fb_conntent">
-      <textarea placeholder="请描述以下你的问题"></textarea>
-      <view class="fb_tool">
-        <button>+</button>
-      </view>
-    </view>
-    <view class="form_btn_wrap">
-      <button type="warn">
-        <icon type="success_no_circle" size="23" color="white"></icon>
-          提交
-      </button>
+</Tabs>
+
+<view class="feedback_main">
+  <view class="fb_title">问题的种类</view>
+  <view class="fb_tips">
+    <text>功能建议</text>
+    <text>购买遇到问题</text>
+    <text>性能问题</text>
+    <text>其它</text>
+  </view>
+  <view class="fb_conntent">
+    <textarea placeholder="请描述以下你的问题"></textarea>
+    <view class="fb_tool">
+      <button>+</button>
+      <view class="up_img_item"><Upimg></Upimg></view>
+      <view class="up_img_item"><Upimg></Upimg></view>
+      <view class="up_img_item"><Upimg></Upimg></view>
     </view>
   </view>
-</Tabs>
+  <view class="form_btn_wrap">
+    <button type="warn">
+      <icon type="success_no_circle" size="23" color="white"></icon>
+        提交
+    </button>
+  </view>
+</view>
