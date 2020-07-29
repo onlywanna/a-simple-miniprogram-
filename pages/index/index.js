@@ -44,6 +44,10 @@ Page({
       url:"/home/swiperdata"
     }).then((result) =>{
       console.log(result)
+      result.forEach(v => {
+        v.navigator_url = v.navigator_url.replace('main','index')
+      });
+
       this.setData({
         swiperList: result
       })
@@ -57,6 +61,7 @@ Page({
       url:"/home/catitems"
     }).then((result) =>{
       console.log(result)
+      result[0].navigator_url = result[0].navigator_url.replace('main','index') //只有第一个元素有url，其它的没带，这里为了不麻烦就写第一个了
       this.setData({
         cateList: result
       })
@@ -69,7 +74,12 @@ Page({
     request({
       url:"/home/floordata"
     }).then((result) =>{
-      console.log(result)
+      console.log(result,"--------------")
+      result.forEach(v1 => {
+        v1.product_list.forEach(v2=>{
+            v2.navigator_url = v2.navigator_url.replace('?','/index?')
+        })
+      })
       this.setData({
         floorList: result
       })

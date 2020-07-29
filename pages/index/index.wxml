@@ -20,7 +20,7 @@
         wx:for = "{{swiperList}}"
         wx:key ="goods_id"
         >
-          <navigator>
+          <navigator url="{{item.navigator_url}}">
             <image mode="widthFix" src="{{item.image_src}}"></image>
           </navigator>
         </swiper-item>
@@ -34,6 +34,8 @@
       <navigator
         wx:for = "{{cateList}}"
         wx:key =  "name"
+        url="{{cateList[0].navigator_url}}"
+        open-type="switchTab"
       >
         <image mode="widthFix" src="{{item.image_src}}"></image>
       </navigator>
@@ -55,6 +57,8 @@
       <view class="floor_content">
         <navigator
         wx:for = "{{item.product_list}}"
+        wx:key="image_src"
+        url="{{item.navigator_url}}"
         >
           <image mode="{{index===0?'widthFix':'scaleToFill'}}" src="{{item.image_src}}"></image>
         </navigator>
